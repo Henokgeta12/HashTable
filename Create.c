@@ -7,6 +7,7 @@ hashtable *createtable(int n)
 {
     hashtable *table = malloc(sizeof(hashtable));
     table->size = n;
-    memset(table,0,sizeof(hashtable));
+    table->bucket = calloc(table->size, sizeof(kvp*));
+    
     return table;
 }

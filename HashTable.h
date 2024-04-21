@@ -23,7 +23,7 @@ typedef struct kvp
 typedef struct hashtable
 {
     int size;
-    kvp **buket;
+    kvp **bucket;
 }hashtable;
 /*
 * this is the function in hashtable used for insert
@@ -33,6 +33,13 @@ void insert(hashtable *table,char *ky,char *value);
 * this is the function in hashtable used to create Table
 */
 hashtable *createtable(int n);
+
+/*
+* print function for to print avilable keypairvalue
+// */
+void print(hashtable *table);
+
+
 /*
 * dbj2 hash function
 */

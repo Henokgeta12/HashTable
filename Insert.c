@@ -10,27 +10,34 @@
 void insert(hashtable *table,char *ky,char *val)
 {
     unsigned long ind = hash(ky);
-    unsigned long index = (ind % table->size); 
+    int index = (ind % table->size); 
     kvp *tmp = malloc(sizeof(kvp));
-    tmp->key = ky;
-    tmp->value = val;
-    if(table->buket[index] == NULL)
+    
+    tmp->key = strdup(ky);
+    tmp->value = strdup(val);
+    tmp->next = NULL;
+    
+    if(table->bucket[index] == NULL)
     {
-     table->buket[index] = tmp;   
+      table->bucket[index] = tmp; 
     }
     else
     {
-        kvp *tmp_2 = table->buket[index];
-        while(tmp_2->next != NULL)
+        
+        kvp *tmp_2 = table->bucket[index];
+        while (tmp_2 != NULL)
         {
-            if(strcmp(tmp->key,ky) == 0)
+            if (strcmp(tmp_2->key, ky) == 0)
             {
-                tmp_2->value = val;
-                free(tmp_2);
+                tmp_2->value = strdup(val);
+                free(tmp->key);
+                free(tmp);
                 return;
             }
             tmp_2 = tmp_2->next;
         }
+        tmp->next = table->bucket[index];
+        table->bucket[index] = tmp;
     }
 }
 
